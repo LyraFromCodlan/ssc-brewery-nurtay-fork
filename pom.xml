@@ -51,6 +51,18 @@
         <developer>
             <name>John Thompson</name>
             <organization>Spring Framework Guru</organization>
+            <roles>
+                <role>Course Owner</role>
+                <role>Project Owner</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Nurtay Tulegenov</name>
+            <roles>
+                <role>Student</role>
+                <role>Developer</role>
+                <role>Branch owner</role>
+            </roles>
         </developer>
     </developers>
 
@@ -111,6 +123,10 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${org.mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <!-- webjars -->
         <dependency>
