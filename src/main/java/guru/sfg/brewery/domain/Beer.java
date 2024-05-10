@@ -17,10 +17,7 @@
 package guru.sfg.brewery.domain;
 
 import guru.sfg.brewery.web.model.BeerStyleEnum;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -40,7 +37,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
 public class Beer extends BaseEntity {
 
     @Builder
@@ -55,6 +51,9 @@ public class Beer extends BaseEntity {
         this.quantityToBrew = quantityToBrew;
         this.price = price;
         this.beerInventory = beerInventory;
+    }
+
+    public Beer(){
     }
 
     private String beerName;

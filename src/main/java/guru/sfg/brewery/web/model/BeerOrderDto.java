@@ -20,14 +20,12 @@ package guru.sfg.brewery.web.model;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
 @Data
-@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class BeerOrderDto extends BaseItem {
 
@@ -40,6 +38,9 @@ public class BeerOrderDto extends BaseItem {
         this.orderStatus = orderStatus;
         this.orderStatusCallbackUrl = orderStatusCallbackUrl;
         this.customerRef = customerRef;
+    }
+
+    public BeerOrderDto(){
     }
 
     private UUID customerId;

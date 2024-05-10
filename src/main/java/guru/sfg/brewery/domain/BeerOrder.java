@@ -16,10 +16,7 @@
  */
 package guru.sfg.brewery.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -37,7 +34,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
 public class BeerOrder extends BaseEntity {
 
     @Builder
@@ -50,6 +46,9 @@ public class BeerOrder extends BaseEntity {
         this.beerOrderLines = beerOrderLines;
         this.orderStatus = orderStatus;
         this.orderStatusCallbackUrl = orderStatusCallbackUrl;
+    }
+
+    public BeerOrder(){
     }
 
     private String customerRef;
