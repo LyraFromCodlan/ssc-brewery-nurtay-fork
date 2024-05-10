@@ -18,9 +18,13 @@ public class BeerRestControllerIntegrationTest extends BaseIntegrationTest{
     }
 
     @Test
-//    @WithMockUser("Lyra Hearthstrings")
-    void findBeersWithHttpBasic() throws Exception{
-        mockMvc.perform(get("/api/v1/beer/"))
+    void findBeersById() throws Exception{
+        mockMvc.perform(get("/api/v1/beer/4fd5e1fb-85c3-43b7-a1b6-d4d15674635a"))
+                .andExpect(status().isOk());
+    }
+    @Test
+    void findBeerByUPC() throws Exception{
+        mockMvc.perform(get("/api/v1/beerUpc/0631234300019"))
                 .andExpect(status().isOk());
     }
 }
