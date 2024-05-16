@@ -11,6 +11,30 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest
 public class BeerControllerIntegrationTest extends BaseIntegrationTest{
 
+
+    @Test
+    void initCreationForm() throws Exception{
+        mockMvc.perform(get("/beers/new").with(httpBasic("Derpy","muffinz")))
+                .andExpect(status().isOk())
+                .andExpect(view().name("beers/createBeer"))
+                .andExpect(model().attributeExists("beer"));
+    }
+    @Test
+    void initCreationFormWithAdmin() throws Exception{
+        mockMvc.perform(get("/beers/new").with(httpBasic("Bonbon","secret")))
+                .andExpect(status().isOk())
+                .andExpect(view().name("beers/createBeer"))
+                .andExpect(model().attributeExists("beer"));
+    }
+
+    @Test
+    void findBeerWithCustomer() throws Exception{
+        mockMvc.perform(get("/beers/find").with(httpBasic("Fluttershy","wabbit")))
+                .andExpect(status().isOk())
+                .andExpect(view().name("beers/findBeers"))
+                .andExpect(model().attributeExists("beer"));
+    }
+
     @Test
 //    WithMockUser is required since we've included spring security into testing
     @WithMockUser("Lyra Hearthstrings")
