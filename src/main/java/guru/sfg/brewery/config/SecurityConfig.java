@@ -7,8 +7,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -16,7 +16,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     PasswordEncoder passwordEncoder(){
-        return new LdapShaPasswordEncoder();
+//        also can pass a secret/salt to better encode passwords. Has empty string by default
+        return new StandardPasswordEncoder();
     }
 
     @Override
@@ -69,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("Derpy")
 //                Added encoder configuration so there is no need to mention encoding algorithm in brackets
 //                .password("{noop}muffinz")
-                .password("{SSHA}ZejQgdpP3ZL89XW7CTtVqmDzSQ+b3xe1F0qEqg==")
+                .password("0e513259128543443182714cef41681396881963ecca0fc8c790a81041740130de8868dcaa74d3e1")
                 .roles("USER");
 //        memory in-build customer
         auth.inMemoryAuthentication()

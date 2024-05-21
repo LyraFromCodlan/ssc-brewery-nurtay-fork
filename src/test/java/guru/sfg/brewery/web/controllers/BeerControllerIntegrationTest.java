@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest
 public class BeerControllerIntegrationTest extends BaseIntegrationTest{
 
-
+//    in current setup with SHA256 encoder only this endpoint request will be authorized successfully
     @Test
     void initCreationForm() throws Exception{
         mockMvc.perform(get("/beers/new").with(httpBasic("Derpy","muffinz_power")))
