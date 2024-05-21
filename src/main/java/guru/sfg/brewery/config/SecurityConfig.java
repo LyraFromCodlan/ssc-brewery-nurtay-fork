@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +18,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     PasswordEncoder passwordEncoder(){
 //        also can pass a secret/salt to better encode passwords. Has empty string by default
         return new BCryptPasswordEncoder();
+    }
+
+    String encodePwd(String pwd){
+        return passwordEncoder().encode(pwd);
     }
 
     @Override
@@ -65,20 +68,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("Bonbon")
 //                Added encoder configuration so there is no need to mention encoding algorithm in brackets
 //                .password("{noop}secret")
-                .password("secret")
+                .password(encodePwd("secret"))
                 .roles("ADMIN")
                 .and()
                 .withUser("Derpy")
 //                Added encoder configuration so there is no need to mention encoding algorithm in brackets
 //                .password("{noop}muffinz")
-                .password("$2a$04$6gJJ5XJns2fdxYdtRNtgAeGxIe03yKCGESZJLIlBYEaMxK643KQjm")
+                .password(encodePwd("muffinz_power"))
                 .roles("USER");
 //        memory in-build customer
         auth.inMemoryAuthentication()
                 .withUser("Fluttershy")
 //        Added encoder configuration so there is no need to mention encoding algorithm in brackets. Don't use algorithm name in brackets if encoder is already configured
 //                .password("{noop}wabbit")
-                .password("wabbit")
+                .password(encodePwd("wabbit"))
                 .roles("CUSTOMER");
     }
 }
