@@ -14,7 +14,7 @@ public class BeerControllerIntegrationTest extends BaseIntegrationTest{
 
     @Test
     void initCreationForm() throws Exception{
-        mockMvc.perform(get("/beers/new").with(httpBasic("Derpy","muffinz")))
+        mockMvc.perform(get("/beers/new").with(httpBasic("Derpy","muffinz_power")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("beers/createBeer"))
                 .andExpect(model().attributeExists("beer"));
