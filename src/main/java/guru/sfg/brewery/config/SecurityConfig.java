@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
@@ -17,7 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     PasswordEncoder passwordEncoder(){
 //        also can pass a secret/salt to better encode passwords. Has empty string by default
-        return new StandardPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
     @Override
@@ -70,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("Derpy")
 //                Added encoder configuration so there is no need to mention encoding algorithm in brackets
 //                .password("{noop}muffinz")
-                .password("0e513259128543443182714cef41681396881963ecca0fc8c790a81041740130de8868dcaa74d3e1")
+                .password("$2a$04$6gJJ5XJns2fdxYdtRNtgAeGxIe03yKCGESZJLIlBYEaMxK643KQjm")
                 .roles("USER");
 //        memory in-build customer
         auth.inMemoryAuthentication()
