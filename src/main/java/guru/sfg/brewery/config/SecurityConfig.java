@@ -1,15 +1,23 @@
 package guru.sfg.brewery.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -53,16 +61,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        authenticate 2 staffs members: admin and cash machine operator
         auth.inMemoryAuthentication()
                 .withUser("Bonbon")
-                .password("{noop}secret")
+//                Added encoder configuration so there is no need to mention encoding algorithm in brackets
+//                .password("{noop}secret")
+                .password("secret")
                 .roles("ADMIN")
                 .and()
                 .withUser("Derpy")
-                .password("{noop}muffinz")
+//                Added encoder configuration so there is no need to mention encoding algorithm in brackets
+//                .password("{noop}muffinz")
+                .password("muffinz")
                 .roles("USER");
 //        memory in-build customer
         auth.inMemoryAuthentication()
                 .withUser("Fluttershy")
-                .password("{noop}wabbit")
+//        Added encoder configuration so there is no need to mention encoding algorithm in brackets. Don't use algorithm name in brackets if encoder is already configured
+//                .password("{noop}wabbit")
+                .password("wabbit")
                 .roles("CUSTOMER");
     }
 }
