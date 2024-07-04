@@ -28,6 +28,14 @@ public class BeerControllerIntegrationTest extends BaseIntegrationTest{
     }
 
     @Test
+    void initCreationFormWithDerpyAdmin() throws Exception{
+        mockMvc.perform(get("/beers/new").with(httpBasic("Derpy","muffinz_power")))
+                .andExpect(status().isOk())
+                .andExpect(view().name("beers/createBeer"))
+                .andExpect(model().attributeExists("beer"));
+    }
+
+    @Test
     void findBeerWithCustomer() throws Exception{
         mockMvc.perform(get("/beers/find").with(httpBasic("Fluttershy","wabbit")))
                 .andExpect(status().isOk())
