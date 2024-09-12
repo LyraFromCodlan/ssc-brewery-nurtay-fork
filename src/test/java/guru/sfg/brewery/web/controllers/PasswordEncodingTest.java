@@ -23,6 +23,15 @@ public class PasswordEncodingTest {
     }
 
     @Test
+    void testCustomBCrypt15() {
+//        Has adjustable strength. Best is 6 for user and 8 for superuser
+        PasswordEncoder bCrypt = new BCryptPasswordEncoder(15);
+        System.out.println(bCrypt.encode(PASSWORD));
+        System.out.println(bCrypt.encode(PASSWORD));
+        System.out.println(bCrypt.encode("tiger"));
+    }
+
+    @Test
     void testSha256() {
         PasswordEncoder sha256 = new StandardPasswordEncoder();
         System.out.println(sha256.encode(PASSWORD));

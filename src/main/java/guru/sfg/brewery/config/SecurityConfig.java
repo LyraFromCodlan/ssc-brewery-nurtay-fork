@@ -1,5 +1,6 @@
 package guru.sfg.brewery.config;
 
+import guru.sfg.brewery.security.SfgPasswordEncoderFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -7,8 +8,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
@@ -18,7 +17,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     PasswordEncoder passwordEncoder(){
 //        also can pass a secret/salt to better encode passwords. Has empty string by default
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return SfgPasswordEncoderFactory.createDelegatingPasswordEncoder();
+//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 //        return new BCryptPasswordEncoder();
     }
 
@@ -78,6 +78,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .password("{noop}muffinz")
 //                .password(encodePwd("muffinz_power"))
                 .password("{bcrypt}$2a$04$brgHBicSVHkjKG9BGA4atuLukGYGXsddXdbdSpD8T3OcjH0PaYX6m")
+//                this encoded password used algo bcrypt with the power of 15
+//                .password("{bcrypt15}$2a$15$K6.TqhK4ai2rBbZ3o.E6Qu1otad4HSUVye1J5dzi/0bxO8BB4UjsC")
                 .roles("USER");
 //        memory in-build customer
         auth.inMemoryAuthentication()
