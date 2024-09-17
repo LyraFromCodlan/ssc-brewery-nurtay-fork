@@ -27,7 +27,7 @@ public class BaseIntegrationTest{
     @Autowired
     WebApplicationContext applicationContext;
 
-    MockMvc mockMvc;
+    public MockMvc mockMvc;
     @MockBean
     BeerRepository beerRepository;
     @MockBean
