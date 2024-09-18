@@ -1,8 +1,10 @@
 package guru.sfg.brewery.config;
 
+import guru.sfg.brewery.repositories.security.JpaUserDetailsService;
 import guru.sfg.brewery.security.RestHeaderAuthFilter;
 import guru.sfg.brewery.security.RestUrlAuthFilter;
 import guru.sfg.brewery.security.SfgPasswordEncoderFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -72,6 +74,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().sameOrigin();
     }
 
+//    THIS APPROACH IS USED IN CASE OF MULTIPLE AUTH SERVICES WHERE WE CHOSE THE EXACT PROVIDER
+    @Autowired
+    private JpaUserDetailsService userDetailsService;
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
 
 //    @Override
 //    @Bean
@@ -92,30 +102,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
 
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        authenticate 2 staffs members: admin and cash machine operator
-        auth.inMemoryAuthentication()
-                .withUser("Bonbon")
-//                Added encoder configuration so there is no need to mention encoding algorithm in brackets
-//                .password("{noop}secret")
-                .password(encodePwd("secret"))
-                .roles("ADMIN")
-                .and()
-                .withUser("Derpy")
-//                Added encoder configuration so there is no need to mention encoding algorithm in brackets
-//                .password("{noop}muffinz")
-//                .password(encodePwd("muffinz_power"))
-                .password("{bcrypt}$2a$04$brgHBicSVHkjKG9BGA4atuLukGYGXsddXdbdSpD8T3OcjH0PaYX6m")
-//                this encoded password used algo bcrypt with the power of 15
-//                .password("{bcrypt15}$2a$15$K6.TqhK4ai2rBbZ3o.E6Qu1otad4HSUVye1J5dzi/0bxO8BB4UjsC")
-                .roles("USER");
-//        memory in-build customer
-        auth.inMemoryAuthentication()
-                .withUser("Fluttershy")
-//        Added encoder configuration so there is no need to mention encoding algorithm in brackets. Don't use algorithm name in brackets if encoder is already configured
-//                .password("{noop}wabbit")
-                .password(encodePwd("wabbit"))
-                .roles("CUSTOMER");
-    }
+//    IN MEMORY AUTHENTICATION
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+////        authenticate 2 staffs members: admin and cash machine operator
+//        auth.inMemoryAuthentication()
+//                .withUser("Bonbon")
+////                Added encoder configuration so there is no need to mention encoding algorithm in brackets
+////                .password("{noop}secret")
+//                .password(encodePwd("secret"))
+//                .roles("ADMIN")
+//                .and()
+//                .withUser("Derpy")
+////                Added encoder configuration so there is no need to mention encoding algorithm in brackets
+////                .password("{noop}muffinz")
+////                .password(encodePwd("muffinz_power"))
+//                .password("{bcrypt}$2a$04$brgHBicSVHkjKG9BGA4atuLukGYGXsddXdbdSpD8T3OcjH0PaYX6m")
+////                this encoded password used algo bcrypt with the power of 15
+////                .password("{bcrypt15}$2a$15$K6.TqhK4ai2rBbZ3o.E6Qu1otad4HSUVye1J5dzi/0bxO8BB4UjsC")
+//                .roles("USER");
+////        memory in-build customer
+//        auth.inMemoryAuthentication()
+//                .withUser("Fluttershy")
+////        Added encoder configuration so there is no need to mention encoding algorithm in brackets. Don't use algorithm name in brackets if encoder is already configured
+////                .password("{noop}wabbit")
+//                .password(encodePwd("wabbit"))
+//                .roles("CUSTOMER");
+//    }
 }

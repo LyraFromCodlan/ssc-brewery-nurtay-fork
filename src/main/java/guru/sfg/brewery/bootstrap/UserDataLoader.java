@@ -41,6 +41,24 @@ public class UserDataLoader implements CommandLineRunner {
                     .authority(customerRole)
                     .build()
             );
+            userRepository.save(User.builder()
+                    .username("Derpy")
+                    .password("{bcrypt}$2a$04$yb4zi/Yxdxn2YRPhqC0WzOv3bIe19VqGnuK8xq8YbPU7x1bQd7TaW")
+                    .authority(adminRole)
+                    .build()
+            );
+            userRepository.save(User.builder()
+                    .username("Bonbon")
+                    .password("{noop}secret")
+                    .authority(customerRole)
+                    .build()
+            );
+            userRepository.save(User.builder()
+                    .username("Fluttershy")
+                    .password("{noop}wabbit")
+                    .authority(customerRole)
+                    .build()
+            );
         }
     }
 }
