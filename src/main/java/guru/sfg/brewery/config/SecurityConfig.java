@@ -23,13 +23,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         RestHeaderAuthFilter filter = new RestHeaderAuthFilter(new AntPathRequestMatcher("/api/**"));
         filter.setAuthenticationManager(authenticationManager);
         return filter;
-    };
+    }
 
     private RestUrlAuthFilter urlFilter(AuthenticationManager authenticationManager){
         RestUrlAuthFilter filter = new RestUrlAuthFilter(new AntPathRequestMatcher("/api/**"));
         filter.setAuthenticationManager(authenticationManager);
         return filter;
-    };
+    }
 
     @Bean
     PasswordEncoder passwordEncoder(){
@@ -56,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests(authorize ->
                     authorize
+                            .antMatchers("/h2-console/**").permitAll() //do not use in production - unsafe
                             .antMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
                             .antMatchers("/beers", "/beers/find").permitAll()
                             .antMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
@@ -66,6 +67,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().and()
                 .httpBasic();
+
+//        h-2 console configuration to allow access to in-browser h2-console
+        http.headers().frameOptions().sameOrigin();
     }
 
 
