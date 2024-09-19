@@ -41,10 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        return new BCryptPasswordEncoder();
     }
 
-    String encodePwd(String pwd){
-        return passwordEncoder().encode(pwd);
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(headerFilter(authenticationManager()),
@@ -61,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             .antMatchers("/h2-console/**").permitAll() //do not use in production - unsafe
                             .antMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
                             .antMatchers("/beers", "/beers/find").permitAll()
+                            .antMatchers(HttpMethod.DELETE, "/api/v1/beer/**").hasRole("ADMIN")
                             .antMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
                             .mvcMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll()
                     )
