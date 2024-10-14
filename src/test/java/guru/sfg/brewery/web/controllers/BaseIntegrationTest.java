@@ -28,18 +28,6 @@ public class BaseIntegrationTest{
     WebApplicationContext applicationContext;
 
     public MockMvc mockMvc;
-    @MockBean
-    BeerRepository beerRepository;
-    @MockBean
-    BeerOrderRepository beerOrderRepository;
-    @MockBean
-    BeerInventoryRepository beerInventoryRepository;
-    @MockBean
-    CustomerRepository customerRepository;
-    @MockBean
-    BeerService beerService;
-    @MockBean
-    BreweryService breweryService;
 
     @BeforeEach
     public void setUpMockMvcFromAppContext(){

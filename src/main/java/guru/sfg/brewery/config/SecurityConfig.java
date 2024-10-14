@@ -74,12 +74,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 //    THIS APPROACH IS USED IN CASE OF MULTIPLE AUTH SERVICES WHERE WE CHOSE THE EXACT PROVIDER
-    @Autowired
-    private JpaUserDetailsService userDetailsService;
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
+//    @Autowired
+//    private JpaUserDetailsService userDetailsService;
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+//    }
 
 
 //    @Override
